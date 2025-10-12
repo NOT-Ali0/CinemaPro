@@ -6,7 +6,7 @@ namespace ConsoleApp1 {
 
         static void Main(){
 
-            Console.WriteLine("helo");
+            Console.WriteLine("Hello this is a Cinema Project");
             
             
             
