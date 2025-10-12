@@ -8,6 +8,7 @@ namespace ConsoleApp1 {
 
             Console.WriteLine("Hello this is a Cinema Project");
             Console.WriteLine("This is test push");
+            Console.WriteLine("this is from lap");
             
             
             
