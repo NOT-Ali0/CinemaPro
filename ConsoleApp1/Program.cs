@@ -6,16 +6,18 @@ namespace ConsoleApp1 {
 
         static void Main(){
 
-            Console.WriteLine("Hello this is a Cinema Project");
-            Console.WriteLine("This is test push");
-            Console.WriteLine("this is from lap");
             
-            
-            
-            
-            
-            
-            
+
+
+
+
+
+
+
+
+
+
+
             Console.ReadKey();
         }
 
