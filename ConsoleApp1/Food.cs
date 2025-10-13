@@ -9,10 +9,9 @@ namespace ConsoleApp1
     internal class Food
     {
         
-
-           
-
+        public Dictionary<string,double> Dik = new Dictionary<string,double>();
 
         
     }
+    
 }
