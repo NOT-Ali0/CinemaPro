@@ -14,6 +14,9 @@ namespace ConsoleApp1 {
             Person user4 = new Person("haider", 19346776, "customerservice");
 
 
+
+
+
             //add food and prices info
 
             //Food f = new Food();
@@ -32,23 +35,25 @@ namespace ConsoleApp1 {
             Console.WriteLine("please signin to continue                                                                     "+ DateTime.Now);
             Console.WriteLine("--------------------------");
 
+            var m = new MovList();
+            m.Display();
 
 
 
-            Console.Write("user name: ");
-            string UserNameInput = Console.ReadLine();
+            //Console.Write("user name: ");
+            //string UserNameInput = Console.ReadLine();
 
-            Console.Write("PassWord: ");
-            int? UserPassInput = int.TryParse(Console.ReadLine(), out var num) ? num : null;
-            //Console.WriteLine($"user name is {UserNameInput} and password is {UserPassInput}");
+            //Console.Write("PassWord: ");
+            //int? UserPassInput = int.TryParse(Console.ReadLine(), out var num) ? num : null;
+            ////Console.WriteLine($"user name is {UserNameInput} and password is {UserPassInput}");
 
 
-            Console.WriteLine("[1] Film");
-            Console.WriteLine("[2] Food and Drinks");
-            Console.WriteLine("[3] Cancel item");
-            Console.WriteLine("[4] Pay");
-            Console.WriteLine("[5] End of the day");
-            Console.WriteLine("[6] Exit");
+            //Console.WriteLine("[1] Film");
+            //Console.WriteLine("[2] Food and Drinks");
+            //Console.WriteLine("[3] Cancel item");
+            //Console.WriteLine("[4] Pay");
+            //Console.WriteLine("[5] End of the day");
+            //Console.WriteLine("[6] Exit");
 
 
 
