@@ -3,22 +3,74 @@ using System.Security;
 
 namespace ConsoleApp1 {
 
+
+    class Person
+    {
+        public string Name { get; set; }
+        public string Title { get; set; }
+        public int PassWord { get; set; }
+
+
+        public Person(string name, int password, string tilte)
+        {
+
+            Name = name;
+            Title = tilte;
+            PassWord = password;
+        }
+
+    }
     class Program {
+        
 
         static void Main(){
+            var p = new Program();
+            
+            MovList movlist = new MovList();
+
             //add user info
-            Random random = new Random();
-            var randHours = random.Next(2,5);
 
-            MovList m = new MovList();
-            m.Display();
-
-            Person user1 = new Person("Ali",1976,"Cashier");
+            Person user1 = new Person("Ali", 1976, "Cashier");
             Person user2 = new Person("mohammed", 21412, "sales");
             Person user3 = new Person("Raheem", 123546, "sales");
             Person user4 = new Person("haider", 19346776, "customerservice");
 
-            
+            //main minu
+            Console.WriteLine("[1] Movies");
+            Console.WriteLine("[2] Snacks & Drinks");
+            Console.WriteLine("[3] Pay");
+            Console.WriteLine("[4] End of the day");
+            Console.WriteLine("[5] Exit");
+
+            Console.Write("Type Your Choice: (numbers!!) ");
+            int? MinuUserInput = int.TryParse(Console.ReadLine(), out int num)? num : null;
+
+            if (MinuUserInput == 1)
+            {
+                Console.Clear();
+                movlist.Display();
+                Console.Write("Type the Movie name To Display The description");
+                //string MovieSelect = Console.ReadLine();
+                //if (MovieSelect == ) {
+                
+
+                //}
+            }
+            else if (MinuUserInput == 2 && MinuUserInput == 3 && MinuUserInput == 4 && MinuUserInput == 5) { Console.WriteLine("Coming soon"); }
+            else { Console.WriteLine("Invalid input"); }
+
+                //set random settings
+                Random random = new Random();
+            var randHours = random.Next(2,5);
+
+
+
+
+
+
+
+
+
 
 
 
@@ -40,7 +92,7 @@ namespace ConsoleApp1 {
             Console.WriteLine("please signin to continue                                                                     "+ DateTime.Now);
             Console.WriteLine("--------------------------");
 
-            
+
 
 
 
@@ -52,12 +104,7 @@ namespace ConsoleApp1 {
             ////Console.WriteLine($"user name is {UserNameInput} and password is {UserPassInput}");
 
 
-            //Console.WriteLine("[1] Film");
-            //Console.WriteLine("[2] Food and Drinks");
-            //Console.WriteLine("[3] Cancel item");
-            //Console.WriteLine("[4] Pay");
-            //Console.WriteLine("[5] End of the day");
-            //Console.WriteLine("[6] Exit");
+            
 
 
 
