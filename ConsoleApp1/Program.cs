@@ -7,13 +7,18 @@ namespace ConsoleApp1 {
 
         static void Main(){
             //add user info
+            Random random = new Random();
+            var randHours = random.Next(2,5);
+
+            MovList m = new MovList();
+            m.Display();
 
             Person user1 = new Person("Ali",1976,"Cashier");
             Person user2 = new Person("mohammed", 21412, "sales");
             Person user3 = new Person("Raheem", 123546, "sales");
             Person user4 = new Person("haider", 19346776, "customerservice");
 
-
+            
 
 
 
@@ -35,8 +40,7 @@ namespace ConsoleApp1 {
             Console.WriteLine("please signin to continue                                                                     "+ DateTime.Now);
             Console.WriteLine("--------------------------");
 
-            var m = new MovList();
-            m.Display();
+            
 
 
 
