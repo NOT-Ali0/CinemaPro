@@ -27,7 +27,7 @@ namespace ConsoleApp1 {
             var p = new Program();
             
             MovList movlist = new MovList();
-
+            
             //add user info
 
             Person user1 = new Person("Ali", 1976, "Cashier");
@@ -50,18 +50,23 @@ namespace ConsoleApp1 {
                 Console.Clear();
                 movlist.Display();
                 Console.Write("Type the Movie name To Display The description");
-                //string MovieSelect = Console.ReadLine();
-                //if (MovieSelect == ) {
+                int? MovieSelect = int.TryParse(Console.ReadLine(), out num) ? num : null;
+                foreach (var m in movlist.MovDick.Keys)
+                {
+                    if (MovieSelect == m.First()) {
+
+                        Console.WriteLine(movlist.MovDick.Values);
+                    }
+                }
+                
                 
 
-                //}
+
+                
             }
             else if (MinuUserInput == 2 && MinuUserInput == 3 && MinuUserInput == 4 && MinuUserInput == 5) { Console.WriteLine("Coming soon"); }
             else { Console.WriteLine("Invalid input"); }
 
-                //set random settings
-                Random random = new Random();
-            var randHours = random.Next(2,5);
 
 
 
@@ -89,8 +94,8 @@ namespace ConsoleApp1 {
             //}
 
             //set Input for name and pass
-            Console.WriteLine("please signin to continue                                                                     "+ DateTime.Now);
-            Console.WriteLine("--------------------------");
+            //Console.WriteLine("please signin to continue                                                                     "+ DateTime.Now);
+            //Console.WriteLine("--------------------------");
 
 
 
