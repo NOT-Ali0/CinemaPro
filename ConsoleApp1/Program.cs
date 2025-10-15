@@ -21,13 +21,18 @@ namespace ConsoleApp1 {
 
     }
     class Program {
-        
+        public void MenuShow() {
+
+            Console.WriteLine("[1] Movies\n[2] Snacks & Drinks\n[3] Pay\n[4] End of the day\n[5] Exit\n\nType Your Choice: \nType (0) to quit");
+
+        }
+
 
         static void Main(){
+            bool IsRunning = true;
             var p = new Program();
             
             MovList movlist = new MovList();
-            
             //add user info
 
             Person user1 = new Person("Ali", 1976, "Cashier");
@@ -36,36 +41,61 @@ namespace ConsoleApp1 {
             Person user4 = new Person("haider", 19346776, "customerservice");
 
             //main minu
-            Console.WriteLine("[1] Movies");
-            Console.WriteLine("[2] Snacks & Drinks");
-            Console.WriteLine("[3] Pay");
-            Console.WriteLine("[4] End of the day");
-            Console.WriteLine("[5] Exit");
+            Program menu = new Program();
 
-            Console.Write("Type Your Choice: (numbers!!) ");
-            int? MinuUserInput = int.TryParse(Console.ReadLine(), out int num)? num : null;
 
-            if (MinuUserInput == 1)
-            {
-                Console.Clear();
-                movlist.Display();
-                Console.Write("Type the Movie name To Display The description");
-                int? MovieSelect = int.TryParse(Console.ReadLine(), out num) ? num : null;
-                foreach (var m in movlist.MovDick.Keys)
+
+
+            menu.MenuShow();
+            while (IsRunning) {
+                
+                int? MinuUserInput = int.TryParse(Console.ReadLine(), out int num) ? num : null;
+                if (MinuUserInput == 1)
                 {
-                    if (MovieSelect == m.First()) {
+                    Console.Clear();
+                    movlist.Display();
+                    Console.Write("Enter (0) To Quit");
 
-                        Console.WriteLine(movlist.MovDick.Values);
-                    }
                 }
+                int? MovieSelect = int.TryParse(Console.ReadLine(), out num) ? num : null;
+                if (MovieSelect == 0)
+                {
+                    Console.Clear();
+                    menu.MenuShow();
+                }
+
+                foreach (var m in movlist.MovDick)
+                    {
+                        if (MovieSelect == char.GetNumericValue(m.Key[0]))
+                        {
+
+                            Console.Clear();
+                            Console.WriteLine(m.Value);
+                            Console.Write("Enter (0) To Quit");
+                            int? MovieExet = int.TryParse(Console.ReadLine(), out num) ? num : null;
+                            if (MovieExet == 0)
+                            {
+                                Console.Clear();
+                                movlist.Display();
+                                Console.Write("Enter (0) To Quit");
+
+                        }
+                    }
+                        
+                    }
+                    
+
+
+
+
+                
                 
                 
 
 
                 
             }
-            else if (MinuUserInput == 2 && MinuUserInput == 3 && MinuUserInput == 4 && MinuUserInput == 5) { Console.WriteLine("Coming soon"); }
-            else { Console.WriteLine("Invalid input"); }
+            
 
 
 
