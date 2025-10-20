@@ -4,28 +4,13 @@ using System.Security;
 namespace ConsoleApp1 {
 
   
-    class Person
-    {
-        public string Name { get; set; }
-        public string Title { get; set; }
-        public int PassWord { get; set; }
-
-
-        public Person(string name, int password, string tilte)
-        {
-
-            Name = name;
-            Title = tilte;
-            PassWord = password;
-        }
-
-    }
+    
     class Program {
         
 
         public void MenuShow() {
 
-            Console.WriteLine("[1] Movies\n[2] Snacks & Drinks\n[3] Pay\n[4] End of the day\n[5] Exit\n\n (0) to quit");
+            Console.WriteLine("[1] Movies\n[2] Snacks & Drinks\n[3] End of the day (Comming soon)\n\n (0) to quit");
 
         }
         public class CinemaHall {
@@ -48,19 +33,27 @@ namespace ConsoleApp1 {
             bool IsRunning1 = true;
             bool IsRunning2 = true;
             bool IsRunning3 = true;
+            bool FoodRunning = true;
+            bool FoodRunning1 = true;
 
-            var p = new Program();
 
-            //quantity count
-            int PricePerSeat = 10;
+
+            //Food list
+            FoodList food = new FoodList();
+
+            //food price
+            double TotelFood = 0;
+            List<string> foodchoice = new List<string>();
             
-            MovList movlist = new MovList();
-            //add user info
 
-            Person user1 = new Person("Ali", 1976, "Cashier");
-            Person user2 = new Person("mohammed", 21412, "sales");
-            Person user3 = new Person("Raheem", 123546, "sales");
-            Person user4 = new Person("haider", 19346776, "customerservice");
+
+
+
+
+
+
+            //movie list
+            MovList movlist = new MovList();
 
             //main minu
             Program menu = new Program();
@@ -84,143 +77,227 @@ namespace ConsoleApp1 {
                     movlist.Display();
                     Console.Write("\n\nType your choice (0) To Quit )> ");
                     IsRunning1 = true;
-                }
-                while (IsRunning1) {
-                    int? MovieSelect = int.TryParse(Console.ReadLine(), out num) ? num : null;
-                    if (MovieSelect == 0)
-                    {
-                        Console.Clear();
-                        IsRunning1 = false;
-                        menu.MenuShow();
-                    }
 
-                    foreach (var m in movlist.MovDick)
+                    while (IsRunning1)
                     {
-                        if (MovieSelect == m.Key)
+                        int? MovieSelect = int.TryParse(Console.ReadLine(), out num) ? num : null;
+                        if (MovieSelect == 0)
                         {
-
                             Console.Clear();
-                            Console.WriteLine(m.Value.Title);
-                            Console.WriteLine("\n\n(0) to quit");
-                            Console.Write("Type [1] to the seatingMap )> ");
-                            IsRunning2 = true;
-                            IsRunning3 = true;
-                            while (IsRunning2) {
-                                int? SeatInput = int.TryParse(Console.ReadLine(), out num) ? num : null;
-                                if (SeatInput == 1)
+                            IsRunning1 = false;
+                            menu.MenuShow();
+                        }
+
+                        foreach (var m in movlist.MovDick)
+                        {
+                            if (MovieSelect == m.Key)
+                            {
+
+                                Console.Clear();
+                                Console.WriteLine(m.Value.Title);
+                                Console.WriteLine("\n\n(0) to quit");
+                                Console.Write("Type [1] to the seatingMap )> ");
+                                IsRunning2 = true;
+                                IsRunning3 = true;
+                                while (IsRunning2)
                                 {
-                                    Console.Clear();
-                                    while (IsRunning3) {
-                                        
-                                        seatObj.Display();
-                                        Console.WriteLine("(0) to quit");
-                                        Console.Write("How many seats would you like to book: ");
-                                        int? Quant = int.TryParse(Console.ReadLine(), out num) ? num : null;
-                                        if (Quant == 0) { Console.Clear(); IsRunning3 = false; IsRunning2 = false; movlist.Display(); }
-                                        else if (Quant > 46) { Console.Clear(); Console.WriteLine("You selected more seats than available. Please choose a smaller number!!!!! "); }
-
-                                        else if (Quant >= 1 || Quant <= 45)
+                                    int? SeatInput = int.TryParse(Console.ReadLine(), out num) ? num : null;
+                                    if (SeatInput == 1)
+                                    {
+                                        Console.Clear();
+                                        while (IsRunning3)
                                         {
-                                            for (int i = 0; i < Quant; ++i)
+
+                                            seatObj.Display();
+                                            Console.WriteLine("(0) to quit");
+                                            Console.Write("How many seats would you like to book: ");
+                                            int? Quant = int.TryParse(Console.ReadLine(), out num) ? num : null;
+                                            if (Quant == 0) { Console.Clear(); IsRunning3 = false; IsRunning2 = false; movlist.Display(); }
+                                            else if (Quant > 46) { Console.Clear(); Console.WriteLine("You selected more seats than available. Please choose a smaller number!!!!! "); }
+
+                                            else if (Quant >= 1 || Quant <= 45)
                                             {
-                                            here:
-                                                Console.Write("Enter your Seats: ");
-                                                var SeatSelecter = Console.ReadLine();
-                                                var SeatUpper = SeatSelecter.ToUpper().Trim();
-                                                
-                                                if (hall.SeatsList.Contains(SeatUpper))
+                                                for (int i = 0; i < Quant; ++i)
                                                 {
-                                                    quantList.Add(SeatUpper);
+                                                here:
+                                                    Console.Write("Enter your Seats: ");
+                                                    var SeatSelecter = Console.ReadLine().ToUpper().Trim();
+                                                    //var SeatUpper = SeatSelecter.ToUpper().Trim();
+
+                                                    if (hall.SeatsList.Contains(SeatSelecter))
+                                                    {
+                                                        quantList.Add(SeatSelecter);
+
+                                                    }
+
+                                                    if (SeatSelecter == "D2" || SeatSelecter == "B5")
+                                                    {
+                                                        Console.WriteLine($"The Seats ({SeatSelecter}) unavailable");
+                                                        goto here;
+                                                        
+                                                    }
+
+                                                    else if (!hall.SeatsList.Contains(SeatSelecter))
+                                                    {
+                                                        Console.WriteLine($"Sorry the {SeatSelecter} not found!! ");
+                                                        goto here;
+                                                    }
+                                                    ;
+
+
+
+
+
 
                                                 }
-
-                                                if (SeatUpper == "D2" || SeatUpper == "B5")
-                                                {
-                                                    Console.WriteLine($"The Seats ({SeatUpper}) unavailable");
-                                                    goto here;
-
-                                                }
-
-                                                else if (!hall.SeatsList.Contains(SeatUpper)) {
-                                                    Console.WriteLine($"Sorry the {SeatUpper} not found!! ");
-                                                    goto here;
-                                                }
-                                                ;
-
-
-
+                                                Console.Write("Enter your name )>");
+                                                string? CusName = Console.ReadLine()?.Trim();
+                                                double Price = Convert.ToDouble(m.Value.Price * Quant);
+                                                string seat = string.Join(',', quantList);
+                                                Console.Clear();
+                                                Console.WriteLine($@"
+                                            ╔════════════════════════════════╗
+                                            ║          TICKET / INVOICE      ║
+                                            ╠════════════════════════════════╣
+                                            ║ Movie : {m.Value.Name}         
+                                            ║ CusName : {CusName}
+                                            ║                                ║
+                                            ║                                ║
+                                            ║ Time  : {DateTime.Now}  ║  
+                                            ║ Show Time: {m.Value.date.ToString("hh:mm tt")}            ║
+                                            ╠════════════════════════════════╣
+                                            ║ Selected Seats: {seat}             ║
+                                            ║ per seat: {m.Value.Price + "$"}                   ║
+                                            ║ Quantity: {Quant}                    ║
+                                            ║ ------------------------------ ║
+                                            ║ TOTAL: {Price + "$"}                      ║
+                                            ╠════════════════════════════════╣
+                                            ║   Thank you! Enjoy the show <3 ║
+                                            ╚════════════════════════════════╝
+                                            ");
+                                                Console.Write("(0) To Quit )>");
+                                                int? SeatOut = int.TryParse(Console.ReadLine(), out num) ? num : null;
+                                                if (SeatOut == 0) { Console.Clear(); IsRunning1 = false; IsRunning2 = false; IsRunning3 = false; }
 
 
 
                                             }
-                                            double Price = Convert.ToDouble(PricePerSeat * Quant);
-                                            string seat = string.Join(',', quantList);
-                                            Console.WriteLine($@"
-                                            ╔════════════════════════════════╗
-                                            ║          TICKET / INVOICE      ║
-                                            ╠════════════════════════════════╣
-                                            ║ Movie : {m.Value.Name}         ║
-                                            ║                                ║
-                                            ║ Time  : {DateTime.Now}  ║
-                                            ║ Showdat: {m.Value.date}║
-                                            ╠════════════════════════════════╣
-                                            ║ Selected Seats: {seat}           ║
-                                            ║ per seat: {PricePerSeat + "$"}                  ║
-                                            ║ Quantity: {Quant}                    ║
-                                            ║ ------------------------------ ║
-                                            ║ TOTAL: {Price + "$"}                     ║
-                                            ╠════════════════════════════════╣
-                                            ║   Thank you! Enjoy the show <3  ║
-                                            ╚════════════════════════════════╝
-                                            ");
-                                            int? SeatOut = int.TryParse(Console.ReadLine(), out num) ? num : null;
-                                            if (SeatOut == 0) { Console.Clear(); IsRunning1 = false; IsRunning2 = false; IsRunning3 = false; }
+                                            else { Console.Clear(); Console.WriteLine($"Invalid Input!! \n\n"); }
 
 
 
                                         }
-                                        else { Console.Clear(); Console.WriteLine($"Invalid Input!! \n\n"); }
 
 
 
                                     }
+                                    else if (SeatInput == 0)
+                                    {
+                                        IsRunning2 = false;
+                                        IsRunning1 = false;
+                                        Console.Clear();
 
 
-
+                                    }
                                 }
-                                else if (SeatInput == 0) { 
-                                    IsRunning2 = false;
-                                    IsRunning1 = false;
-                                    Console.Clear();
-
-                                   
-                                }
+                                
                             }
-                            //movlist.Display();
-                            //Console.Write("Type (0) To Quit )> ");
-                            //int? MovieExet = int.TryParse(Console.ReadLine(), out num) ? num : null;
-                            //if (MovieExet == 0)
-                            //{
-                            //    Console.Clear();
-                            //    movlist.Display();
-                            //}
-                        }
-                        //else if (MovieSelect == 0) { IsRunning1 = false; }
+                            
 
+                        }
                     }
                 }
                 
-                    
+                if (MinuUserInput == 2) {
+
+
+                    Console.Clear();
+                    FoodRunning = true;
+                    while (FoodRunning) {
+
+                        FoodRunning1 = true;
+                        while (FoodRunning1)
+                        {
+                            Console.Clear() ;
+                            food.foodListDisplay();
+                            Console.WriteLine("(0) to To calculate the totale");
+                            Console.Write("Enter your Choice )>");
+                            int? FoodInput = int.TryParse(Console.ReadLine(), out int number) ? number : null;
+                            if (FoodInput == 0) { FoodRunning1 = false; FoodRunning = false; }
+                            if (FoodInput > 12 || FoodInput < 0 || FoodInput == null)
+                            {
+
+                                Console.Clear();
+                                Console.WriteLine("Invalid input please try a again!!!!!\n\n\n ");
+                                FoodRunning1 = false;
+                            }
+                            TotelFood = FoodInput switch
+                            {
+                                1 => TotelFood += food.food[(int)FoodInput].Price,
+                                2 => TotelFood += food.food[(int)FoodInput].Price,
+                                3 => TotelFood += food.food[(int)FoodInput].Price,
+                                4 => TotelFood += food.food[(int)FoodInput].Price,
+                                5 => TotelFood += food.food[(int)FoodInput].Price,
+                                6 => TotelFood += food.food[(int)FoodInput].Price,
+                                7 => TotelFood += food.food[(int)FoodInput].Price,
+                                8 => TotelFood += food.food[(int)FoodInput].Price,
+                                9 => TotelFood += food.food[(int)FoodInput].Price,
+                                10 => TotelFood += food.food[(int)FoodInput].Price,
+                                11 => TotelFood += food.food[(int)FoodInput].Price,
+                                12 => TotelFood += food.food[(int)FoodInput].Price,
+                                _ => TotelFood
+
+
+                            };
+                            if (FoodInput >= 1)
+                            {
+                                foodchoice.Add(food.food[(int)FoodInput].Name);
+                            }
+                            
+                        }
+                        Console.Clear();
+                        Console.WriteLine($@"
+========================================
+            CINEMA FOOD BILL 
+========================================
+{DateTime.Now:f}");
+                        Console.WriteLine("-------------your order-------------\n");
+                        foreach (var item in foodchoice) {
+
+                            Console.WriteLine(item);
+                        }
+                        Console.WriteLine("\n------------------------------------\n");
+                        Console.WriteLine($"your total price is {TotelFood}$");
+                        Console.WriteLine("========================================\r\n     THANK YOU FOR YOUR PURCHASE! \r\n========================================");
+
+                        Console.Write("\n\n\n\n\nType (0) to Exit )>");
+                        int? FoodOut = int.TryParse(Console.ReadLine(), out int number1) ? number1 : null;
+                        if (FoodOut == 0) { IsRunning = false; };
+                        
+
+
+
+                        
+            
+
+
+                    }
+
+                }
+                if (MinuUserInput == 0) { break; }
+                if (MinuUserInput == 3) { Console.WriteLine("Comming soon");break; }
 
 
 
 
-                
-                
-                
 
 
-                
+
+
+
+
+
+
             }
             
 
@@ -236,34 +313,15 @@ namespace ConsoleApp1 {
 
 
 
-            //add food and prices info
+            
 
-            //Food f = new Food();
-            //f.Dik.Add("Popcorn",12.5);
-            //f.Dik.Add("rice", 6.50);
-            //f.Dik.Add("pepsi", 5.20);
-            //f.Dik.Add("pizza", 4.90);
-            //f.Dik.Add("chocholate", 2.99);
-
-            //foreach (KeyValuePair<string, double> d in f.Dik) {
-
-            //    Console.WriteLine($"1-{ d.Key} ${d.Value}");
-            //}
-
-            //set Input for name and pass
-            //Console.WriteLine("please signin to continue                                                                     "+ DateTime.Now);
-            //Console.WriteLine("--------------------------");
+            
 
 
 
 
 
-            //Console.Write("user name: ");
-            //string UserNameInput = Console.ReadLine();
-
-            //Console.Write("PassWord: ");
-            //int? UserPassInput = int.TryParse(Console.ReadLine(), out var num) ? num : null;
-            ////Console.WriteLine($"user name is {UserNameInput} and password is {UserPassInput}");
+            
 
 
             
