@@ -19,6 +19,7 @@ namespace ConsoleApp1
 
         public FoodList()
         {
+
             food.Add(1, new Food { Name = "Popcorn (Small)", Price = 2.5 });
             food.Add(2, new Food { Name = "Popcorn (Large)", Price = 4.0 });
             food.Add(3, new Food { Name = "Nachos with Cheese", Price = 3.4 });

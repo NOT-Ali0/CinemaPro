@@ -2,15 +2,13 @@
 using System.Security;
 
 namespace ConsoleApp1 {
-
-  
     
     class Program {
         
 
-        public void MenuShow() {
+        public static void MenuShow() {
 
-            Console.WriteLine("[1] Movies\n[2] Snacks & Drinks\n[3] End of the day (Comming soon)\n\n (0) to quit");
+            Console.WriteLine("[1] Movies\n[2] Snacks & Drinks\n[3] Add Food\n\n (0) to quit");
 
         }
         public class CinemaHall {
@@ -27,7 +25,6 @@ namespace ConsoleApp1 {
             };
         } 
 
-
         static void Main(){
             bool IsRunning = true;
             bool IsRunning1 = true;
@@ -36,27 +33,15 @@ namespace ConsoleApp1 {
             bool FoodRunning = true;
             bool FoodRunning1 = true;
 
-
-
             //Food list
             FoodList food = new FoodList();
 
             //food price
             double TotelFood = 0;
             List<string> foodchoice = new List<string>();
-            
-
-
-
-
-
-
 
             //movie list
             MovList movlist = new MovList();
-
-            //main minu
-            Program menu = new Program();
 
             //seating
             SeatShowAndPrace seatObj = new SeatShowAndPrace();
@@ -68,7 +53,7 @@ namespace ConsoleApp1 {
             List<string> quantList = new List<string>();
 
             while (IsRunning) {
-                menu.MenuShow();
+                MenuShow();
                 Console.Write("Type your choice )> ");
                 int? MinuUserInput = int.TryParse(Console.ReadLine(), out int num) ? num : null;
                 if (MinuUserInput == 1)
@@ -85,7 +70,7 @@ namespace ConsoleApp1 {
                         {
                             Console.Clear();
                             IsRunning1 = false;
-                            menu.MenuShow();
+                            MenuShow();
                         }
 
                         foreach (var m in movlist.MovDick)
@@ -122,7 +107,6 @@ namespace ConsoleApp1 {
                                                 here:
                                                     Console.Write("Enter your Seats: ");
                                                     var SeatSelecter = Console.ReadLine().ToUpper().Trim();
-                                                    //var SeatUpper = SeatSelecter.ToUpper().Trim();
 
                                                     if (hall.SeatsList.Contains(SeatSelecter))
                                                     {
@@ -143,9 +127,6 @@ namespace ConsoleApp1 {
                                                         goto here;
                                                     }
                                                     ;
-
-
-
 
 
 
@@ -185,9 +166,7 @@ namespace ConsoleApp1 {
                                             else { Console.Clear(); Console.WriteLine($"Invalid Input!! \n\n"); }
 
 
-
                                         }
-
 
 
                                     }
@@ -197,12 +176,10 @@ namespace ConsoleApp1 {
                                         IsRunning1 = false;
                                         Console.Clear();
 
-
                                     }
                                 }
                                 
                             }
-                            
 
                         }
                     }
@@ -245,7 +222,7 @@ namespace ConsoleApp1 {
                                 10 => TotelFood += food.food[(int)FoodInput].Price,
                                 11 => TotelFood += food.food[(int)FoodInput].Price,
                                 12 => TotelFood += food.food[(int)FoodInput].Price,
-                                _ => TotelFood
+                                _ => TotelFood 
 
 
                             };
@@ -253,6 +230,7 @@ namespace ConsoleApp1 {
                             {
                                 foodchoice.Add(food.food[(int)FoodInput].Name);
                             }
+                            
                             
                         }
                         Console.Clear();
@@ -272,20 +250,45 @@ namespace ConsoleApp1 {
 
                         Console.Write("\n\n\n\n\nType (0) to Exit )>");
                         int? FoodOut = int.TryParse(Console.ReadLine(), out int number1) ? number1 : null;
-                        if (FoodOut == 0) { IsRunning = false; };
+                        if (FoodOut == 0) { Console.Clear(); IsRunning1 = false; };
                         
-
-
-
-                        
-            
+  
 
 
                     }
 
                 }
                 if (MinuUserInput == 0) { break; }
-                if (MinuUserInput == 3) { Console.WriteLine("Comming soon");break; }
+                if (MinuUserInput == 3)
+                {
+                    Console.Clear();
+                    Console.Write("enter how many food you like to add )>");
+                    int? foodadd = int.TryParse(Console.ReadLine(), out int num7) ? num7 : null;
+                    for (int i = 0; i < foodadd; ++i)
+                    {
+                    hub:
+                        Console.Write("Enter the Food Id )>");
+                        int foodIdAdd = Convert.ToInt32(Console.ReadLine());
+                        if (foodIdAdd < 1) { Console.WriteLine("You can't add id under zero !!"); goto hub; }
+                        ;
+                        if (food.food.Keys.Contains(Convert.ToInt32(foodIdAdd))) { Console.WriteLine($"The Id {foodIdAdd} is already using!! "); goto hub; };
+                        Console.Write("Enter the Food Name )>");
+                        var foodName = Console.ReadLine()?.Trim();
+                        Console.Write("Enter the Food Price )>");
+                        Double foodPrice = Convert.ToDouble(Console.ReadLine());
+                        if (foodPrice < 1) { Console.WriteLine("You can't add Price under zero !!"); goto hub; }
+                        ;
+
+
+
+                        food.food.Add((int)foodIdAdd, new Food { Name = foodName, Price = (double)foodPrice });
+
+
+                    }
+                    Console.Clear() ;
+                    
+
+                }
 
 
 
